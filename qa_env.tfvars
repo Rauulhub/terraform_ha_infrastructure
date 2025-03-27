@@ -1,7 +1,7 @@
 environment = "qa"
 #environment = terraform.workspace
 #project = "project01"
-#backendbucketname = "lab-tf-gh"
+#backendbucketname = "<bucket name>"
 aws-region = "us-east-1"
 vpc_name = "lab_vpc"
 vpc_cidr = "10.2.0.0/25"
