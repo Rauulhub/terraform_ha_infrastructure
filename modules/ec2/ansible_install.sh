@@ -8,7 +8,7 @@ sudo pip3 install ansible
 sudo mkdir /etc/ansible
 sudo touch /etc/ansible/inventory.yml
 sudo touch /etc/ansible/playbook.yml
-sudo chmod 777 /etc/ansible/inventory.yml /etc/ansible/playbook.yml
+sudo chmod 400 /etc/ansible/inventory.yml /etc/ansible/playbook.yml
 
 sudo tee /etc/ansible/inventory.yml > /dev/null << EOF
 all: 
@@ -16,13 +16,13 @@ all:
     webservers:
       hosts:
         frontend:
-          ansible_host: 10.1.0.13
+          ansible_host: <ip>
           ansible_user: ubuntu
-          ansible_ssh_private_key_file: /tmp/key_file
+          ansible_ssh_private_key_file: /tmp/<key_file_name>
         backend:
-          ansible_host: 10.1.0.41
+          ansible_host: <ip>
           ansible_user: ubuntu
-          ansible_ssh_private_key_file: /tmp/key_file
+          ansible_ssh_private_key_file: /tmp/<key_file_name>
 EOF
 
 
@@ -44,7 +44,7 @@ sudo tee /etc/ansible/playbook.yml > /dev/null << EOF
         state: directory
         mode: "0755"
     - name: Download application files from S3
-      command: sudo aws s3 cp s3://lab-final-backend/backend.zip /etc/backend
+      command: sudo aws s3 cp s3://<your_bucket>/backend.zip /etc/backend
     - name: Extract application files
       unarchive:
         src: /etc/backend/backend.zip
@@ -76,7 +76,7 @@ sudo tee /etc/ansible/playbook.yml > /dev/null << EOF
         state: directory
         mode: "0755"
     - name: Download application files from S3
-      command: sudo aws s3 cp s3://lab-final-backend/frontend.zip /etc/frontend
+      command: sudo aws s3 cp s3://<your_bucket>/frontend.zip /etc/frontend
     - name: Extract application files
       unarchive:
         src: /etc/frontend/frontend.zip
@@ -94,6 +94,6 @@ sudo tee /etc/ansible/playbook.yml > /dev/null << EOF
       poll: 0
 
 EOF
-#chmod 400 /tmp/key_file
-#ssh -i /tmp/key_file ec2-user@ip
-#ansible-playbook -i /etc/ansible/inventory.yml /etc/ansible/private-playbook.yml  
+#chmod 400 /tmp/<key_file_name>
+#ssh -i /tmp/<key_file_name> ec2-user@ip
+#ansible-playbook -i /etc/ansible/inventory.yml /etc/ansible/playbook.yml  
