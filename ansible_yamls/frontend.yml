@@ -1,0 +1,33 @@
+---
+- name: Configure Frontend Instance
+  hosts: frontend
+  become: yes
+  tasks:
+    - name: Update and install dependencies
+      apt:
+        name:
+          - unzip
+        state: present
+        update_cache: yes
+    - name: Create application directory
+      file:
+        path: /etc/frontend
+        state: directory
+        mode: "0755"
+    - name: Download application files from S3
+      command: sudo aws s3 cp s3://lab-final-backend/frontend.zip /etc/frontend
+    - name: Extract application files
+      unarchive:
+        src: /etc/frontend/frontend.zip
+        dest: /etc/frontend
+        remote_src: yes
+    - name: Install frontend dependencies
+      command: sudo npm install
+      args:
+        chdir: /etc/frontend
+    - name: Start frontend application
+      command: sudo nohup snpm run start
+      args:
+        chdir: /etc/frontend
+      async: 60
+      poll: 0

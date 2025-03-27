@@ -1,0 +1,14 @@
+environment = "qa"
+#environment = terraform.workspace
+#project = "project01"
+#backendbucketname = "lab-tf-gh"
+aws-region = "us-east-1"
+vpc_name = "lab_vpc"
+vpc_cidr = "10.2.0.0/25"
+vpc_az= ["us-east-1a","us-east-1b"]
+vpc_public_subnet = ["10.2.0.0/28", "10.2.0.80/28"]
+vpc_private_subnet = ["10.2.0.16/28","10.2.0.32/28","10.2.0.96/28"]
+vpc_db_subnet= ["10.2.0.48/28", "10.2.0.64/28"] 
+ami_id= "ami-0984f4b9e98be44bf"
+instance_type = "t2.micro"
+key_pair = "key_file"

@@ -1,0 +1,33 @@
+---
+- name: Configure Backend Instance
+  hosts: backend
+  become: yes
+  tasks:
+    - name: Update and install dependencies
+      apt:
+        name:
+          - unzip
+        state: present
+        update_cache: yes
+    - name: Create application directory
+      file:
+        path: /etc/backend
+        state: directory
+        mode: "0755"
+    - name: Download application files from S3
+      command: sudo aws s3 cp s3://lab-final-backend/backend.zip /etc/backend
+    - name: Extract application files
+      unarchive:
+        src: /etc/backend/backend.zip
+        dest: /etc/backend
+        remote_src: yes
+    - name: Install backend dependencies
+      command: sudo npm install
+      args:
+        chdir: /etc/backend/
+    - name: Start backend application
+      command: sudo nohup npm run start
+      args:
+        chdir: /etc/backend/
+      async: 60
+      poll: 0

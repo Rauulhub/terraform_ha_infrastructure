@@ -1,0 +1,16 @@
+---
+- name: Configure management host
+  hosts: management
+  tasks:
+    - name: Update and install dependencies
+      yum:
+        name: Install aws-cli & Python
+          - aws-cli
+          - python3
+          - git
+        state: present
+
+    - name: Install Ansible
+      pip:
+        name: ansible
+        state: present

@@ -1,0 +1,12 @@
+all: 
+  children:
+    webservers:
+      hosts:
+        frontend:
+          ansible_host: 10.1.0.13
+          ansible_user: ubuntu
+          ansible_ssh_private_key_file: /tmp/key_file
+        backend:
+          ansible_host: 10.1.0.41
+          ansible_user: ubuntu
+          ansible_ssh_private_key_file: /tmp/key_file
