@@ -15,7 +15,7 @@
         state: directory
         mode: "0755"
     - name: Download application files from S3
-      command: sudo aws s3 cp s3://lab-final-backend/backend.zip /etc/backend
+      command: sudo aws s3 cp s3://<bucket_name>/backend.zip /etc/backend
     - name: Extract application files
       unarchive:
         src: /etc/backend/backend.zip
