@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "lab-final-backend"
+    bucket = "<bucket_name>"
     workspace_key_prefix = "project01"
     key    = "project01/terraform.tfstate"
     region = "us-east-1"
